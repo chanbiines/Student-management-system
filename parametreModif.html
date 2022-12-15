@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/parametreModif.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+    <title>Modification Admin</title>
+</head>
+<body>
+    <div class="container">
+
+        <div class="naviguation">
+            <div class="boiteAdmin">
+                <div class="photoAdmin"></div>
+                <p>ADMIN</p>
+            </div>
+            <ul class="navul">
+                <li>
+                    <a href="dashboard.html">
+                    <span class="icone"><i class="fa fa-home" aria-hidden="true"></i></span>
+                    <span class="titre">Accueil</span>
+                    </a>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#">
+                    <span class="icone"><i class="fa fa-users" aria-hidden="true"></i></span>
+                    <span class="titre">Espace Etudiants</span>
+                    </a>
+                    <ul class="sousMenu">
+                        <li>
+                            <a href="liste.html">
+                            <span class="icone"><i class="fa fa-list-ul" aria-hidden="true"></i></span>
+                            <span class="titre">Liste</span>
+                        </a>
+                        </li>
+                        <li>
+                            <a href="resultat.html">
+                            <span class="icone"><i class="fa fa-check-double" aria-hidden="true"></i></span>
+                            <span class="titre">Résultats</span>
+                        </a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <li>
+                    <a href="parametres.html">
+                    <span class="icone"><i class="fa fa-cogs" aria-hidden="true"></i></span>
+                    <span class="titre">Paramètres</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                    <span class="icone"><i class="fa fa-sign-out-alt" aria-hidden="true"></i></span>
+                    <span class="titre">Déconnexion</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="main">
+
+            <div class="topbar">
+                <div class="toggle" onclick="toggleMenu()"><i class="fa fa-bars"></i></div>
+                <div class="search">
+                    <label for="search">
+                        <input type="search" name="search" id="search" placeholder="faire une recherche...">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </label>
+                </div>
+            </div>
+
+            
+            <div class="formulaireBox">
+
+                <form name="form" id="myForm" >
+                    
+                    <div class="formInput">
+                        <h3>Modifier enregistrement</h3>
+                        <div class="photoadmin">
+                            <input type="file" name="photoInput" id="photoInput">
+                        </div>
+                        <div>
+                           <label for="nom">Nom</label>
+                        <input type="text" name="nom" id="nom" minlength="2" pattern="[A-Za-z ]*" title="Le nom doit contenir que des lettres, eviter les accents"> 
+                        </div>
+                        
+                        <div>
+                          <label for="prenom">Prenom</label>
+                        <input type="text" name="prenom" id="prenom" minlength="2" pattern="[A-Za-z ]*" title="Le nom doit contenir que des lettres, eviter les accents">  
+                        </div>
+
+                        <div>
+                            <label for="email">Email</label>
+                        <input type="email" name="email" id="email" >
+                        </div>
+
+                        <div>
+                            <label for="identifiant">Identifiant</label>
+                          <input type="text" name="identifiant" id="identifiant" minlength="2">  
+                        </div>
+
+                        <div>
+                            <label for="newpass">Nouveau mot de passe</label>
+                          <input type="text" name="newPass" id="newPass" minlength="6">  
+                        </div>
+
+                        <div>
+                            <label for="confirmpass">Confirmer mot de passe</label>
+                          <input type="text" name="confirmPass" id="confirmPass" minlength="6">  
+                        </div>
+                        <a href="parametres.html"><span class="fa fa-times"></span></a>
+                        <p id="error"></p>
+                    </div>
+                    
+                    <input type="submit" value="Enregistrer" class="submit">
+                </form>
+            
+            </div>
+            <!-- Fin-->
+
+        </div>
+        
+    </div>
+            
+     
+     
+</body>
+<script src="script/toggle.js"></script>
+<script>
+const myForm = document.getElementById('myForm');
+const nom = document.getElementById('nom');
+const prenom = document.getElementById('prenom');
+const email = document.getElementById('email');
+const identifiant = document.getElementById('identifiant');
+const newMp = document.getElementById('newPass');
+const confirmMp = document.getElementById('confirmPass');
+const photoAdmin = document.getElementById('photoInput');
+const photoBox = document.querySelector('.photoadmin');
+photoAdmin.src="../image/photo.jpg"
+
+photoAdmin.addEventListener("change",function(){
+    const reader = new FileReader();
+
+    reader.addEventListener('load',(e)=>{
+        uploaded_image = reader.result;
+        photoAdmin.src = reader.result;
+        photoBox.style.backgroundImage= `url(${uploaded_image})`;
+    });
+
+    reader.readAsDataURL(this.files[0]);
+})
+
+myForm.addEventListener('submit',function(e){
+    e.preventDefault();
+    enregistrerAdmin();
+    
+})
+
+/*Changer photo de l'Admin sur le dashboard*/
+let arr = JSON.parse(localStorage.getItem('Admin'));
+    for (admin in arr) {
+        const adminPic = document.querySelector('.photoAdmin')
+        adminPic.style.background=`url(${arr[admin].photo}) no-repeat center/cover`;
+    }
+/*Fin*/
+
+
+function enregistrerAdmin(){
+    if (nom.value!=="" && prenom.value!=="" && email.value!=="" && identifiant.value!=="" && newMp.value !=="") {
+        if (newMp.value == confirmMp.value) { 
+            let enregistrer = {
+                nom:nom.value,
+                prenom:prenom.value,
+                email:email.value,
+                identifiant:identifiant.value,
+                motDePasse:newMp.value,
+                photo:photoAdmin.src
+            };
+
+            localStorage.setItem("Admin",JSON.stringify([enregistrer]));
+            myForm.reset();
+            location.href="parametres.html";
+        } else {
+            confirmMp.style.border="2px solid red";
+            const error = document.getElementById('error');
+            error.innerHTML ="Le mot de passe ne correspond pas"
+            error.style.color ="red";
+        setTimeout(function(){
+            error.innerHTML ="";
+            confirmMp.style.border="1px solid black";
+        },1000)
+        }
+    } else{
+        const error = document.getElementById('error');
+        error.innerHTML ="Veuillez remplir tous les champs"
+        error.style.color ="red";
+        setTimeout(function(){
+            error.innerHTML ="";
+            
+        },1000)
+    }
+}
+</script>
+</html>

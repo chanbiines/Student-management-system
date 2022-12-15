@@ -1,0 +1,110 @@
+.contenus{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgb(255, 255, 255) !important;
+    border: 5px solid #79B1F9;
+    position: relative;
+    gap: 1em;
+}
+
+.title{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 30px;
+}
+
+.title label{
+    width: 100%;
+    position: relative;
+}
+
+.title input{
+    outline: none;
+    border: 1px solid #111;
+    padding: 0px 5px;
+    width: 50%;
+    border-radius: 40px;
+    height: 30px;
+}
+
+.title .fa{
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: 0px; 
+    padding-right: 20px; 
+}
+
+.tableContainer{
+    position: absolute;
+    top: 120px;
+    max-width: 90%;
+    max-height: 500px;
+    padding: 5px;
+    overflow: auto;
+    border-bottom: 1px solid black;
+}
+
+.tableContainer table{
+    width: 100%;
+}
+
+.tableContainer table thead tr td{
+    border:2px solid transparent;
+    border-top-color: rgb(0, 0, 0) ;
+    text-align: center;
+    padding: 10px;
+    font-weight: 700;
+    border-collapse:collapse;
+}
+
+.tableContainer table thead tr td:last-child{
+    border: none !important;
+}
+
+.tableContainer table tbody tr{
+    box-shadow: 1px 1px 1px rgb(211, 211, 211);
+    text-align: center;
+}
+
+.tableContainer table tbody tr:hover{
+    cursor: pointer;
+}
+
+.tableContainer table tbody tr td{
+    text-align: center;
+    padding: 10px;
+    border-collapse:collapse;
+}
+
+.tableContainer table tbody tr td:hover{
+    border: 1px solid transparent;
+    border-bottom-color:black ;
+    text-align: center;
+}
+
+.add{
+    position: absolute;
+    bottom: 70px;
+    text-decoration: none;
+    color: white;
+    background: rgb(30, 128, 30);
+    padding:10px;
+}
+
+#error{
+    z-index: 1;
+    position: relative;
+    top: 200px;
+}
+
+button{
+    color: red;
+    border: none;
+    background:transparent;
+    font-size: 24px;
+    cursor: pointer;
+}
